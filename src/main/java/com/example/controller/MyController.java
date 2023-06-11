@@ -2,6 +2,7 @@ package com.example.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class MyController {
 
-  @GetMapping("/elo")
+  @GetMapping(value = "/elo", produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseBody
   public Map<String, String> hello() {
     HashMap<String, String> response = new HashMap<>();
@@ -23,11 +24,4 @@ public class MyController {
     return "foo";
   }
 
-  @GetMapping("/bar")
-  @ResponseBody
-  public Map<String, String> bar() {
-    HashMap<String, String> response = new HashMap<>();
-    response.put("message", "bar");
-    return response;
-  }
 }
