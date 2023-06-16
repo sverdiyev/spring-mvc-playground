@@ -16,4 +16,5 @@ public class MyWebsocketHandler extends TextWebSocketHandler {
     System.out.println(message.getPayload());
   }
 
+
 }
