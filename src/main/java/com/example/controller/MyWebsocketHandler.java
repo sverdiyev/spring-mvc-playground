@@ -13,6 +13,7 @@ public class MyWebsocketHandler extends TextWebSocketHandler {
   @Override
   protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
     System.out.println("message received");
+    System.out.println(message.getPayload());
   }
 
 }
