@@ -26,10 +26,8 @@ public class MyWebsocketHandler extends TextWebSocketHandler {
     var mapper = new ObjectMapper();
 
     ChatMessage receivedMessage = mapper.readValue(message.getPayload(), ChatMessage.class);
-    System.out.println("message received");
-    System.out.println(receivedMessage);
 
-    session.sendMessage(new TextMessage("hello from api"));
+    chatRepository.addMessage("anon", receivedMessage.messageContent());
 
     var resMessage = new ChatMessage("Sasha", "hello from sasha", new Timestamp(1000));
 

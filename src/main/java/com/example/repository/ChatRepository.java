@@ -3,6 +3,7 @@ package com.example.repository;
 
 import com.example.model.ChatMessage;
 import java.util.List;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -17,10 +18,19 @@ public class ChatRepository {
   }
 
   public List<ChatMessage> getAll() {
-
     return namedParameterJdbcTemplate.query("""
       SELECT * FROM test_table;
-      """, (rs, rowNum) -> new ChatMessage(rs.getString("name"), "got it from db", null));
+      """, (rs, rowNum) -> new ChatMessage(rs.getString("username"), rs.getString("message_content"), null));
+  }
 
+
+  public void addMessage(String username, String messageContent) {
+    MapSqlParameterSource params = new MapSqlParameterSource()
+      .addValue("userName", username)
+      .addValue("messageContent", messageContent);
+
+    namedParameterJdbcTemplate.update("""
+      INSERT INTO test_table (username, message_content) values (:userName, :messageContent);
+      """, params);
   }
 }
