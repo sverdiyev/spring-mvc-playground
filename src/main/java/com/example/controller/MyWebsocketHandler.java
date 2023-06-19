@@ -15,6 +15,8 @@ public class MyWebsocketHandler extends TextWebSocketHandler {
 
   private final ChatRepository chatRepository;
 
+  private final ObjectMapper mapper = new ObjectMapper();
+
   public MyWebsocketHandler(ChatRepository chatRepository) {
     System.out.println("hello from websocket handler");
     this.chatRepository = chatRepository;
@@ -23,7 +25,6 @@ public class MyWebsocketHandler extends TextWebSocketHandler {
 
   @Override
   protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-    var mapper = new ObjectMapper();
 
     ChatMessage receivedMessage = mapper.readValue(message.getPayload(), ChatMessage.class);
 
@@ -45,4 +46,14 @@ public class MyWebsocketHandler extends TextWebSocketHandler {
 
   }
 
+  @Override
+  public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+
+    var messages = chatRepository.getAll();
+
+    for (ChatMessage msg : messages) {
+      session.sendMessage(new TextMessage(mapper.writeValueAsString(msg)));
+    }
+
+  }
 }
