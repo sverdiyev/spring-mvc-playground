@@ -1,83 +1,119 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>org.example</groupId>
   <artifactId>try_with_gpt</artifactId>
-  <packaging>war</packaging>
-  <version>1.0-SNAPSHOT</version>
-  <name>try_with_gpt Maven Webapp</name>
-  <url>http://maven.apache.org</url>
-
-  <properties>
-    <maven.compiler.target>17</maven.compiler.target>
-    <maven.compiler.source>17</maven.compiler.source>
-  </properties>
-
+  <build>
+    <finalName>try_with_gpt</finalName>
+    <plugins>
+      <plugin>
+        <artifactId>liquibase-maven-plugin</artifactId>
+        <configuration>
+          <propertyFile>liquibase.properties</propertyFile>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <artifactId>postgresql</artifactId>
+            <groupId>org.postgresql</groupId>
+            <version>42.6.0</version>
+          </dependency>
+        </dependencies>
+        <executions>
+          <execution>
+            <goals>
+              <goal>update</goal>
+            </goals>
+            <id>liquibase-update</id>
+            <phase>process-resources</phase>
+          </execution>
+        </executions>
+        <groupId>org.liquibase</groupId>
+        <version>4.22.0</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>3.11.0</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-war-plugin</artifactId>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>3.3.2</version>
+      </plugin>
+    </plugins>
+  </build>
   <dependencies>
 
     <dependency>
-      <groupId>org.springframework</groupId>
+      <artifactId>liquibase-maven-plugin</artifactId>
+      <groupId>org.liquibase</groupId>
+      <version>4.22.0</version>
+    </dependency>
+
+    <dependency>
+      <artifactId>liquibase-core</artifactId>
+      <groupId>org.liquibase</groupId>
+      <version>4.22.0</version>
+    </dependency>
+
+    <dependency>
       <artifactId>spring-jdbc</artifactId>
+      <groupId>org.springframework</groupId>
       <version>6.0.9</version>
     </dependency>
 
     <dependency>
-      <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
+      <groupId>org.postgresql</groupId>
       <version>42.6.0</version>
     </dependency>
 
 
     <dependency>
-      <groupId>org.springframework</groupId>
       <artifactId>spring-websocket</artifactId>
+      <groupId>org.springframework</groupId>
       <version>6.0.9</version>
     </dependency>
 
     <dependency>
-      <groupId>org.springframework</groupId>
       <artifactId>spring-messaging</artifactId>
+      <groupId>org.springframework</groupId>
       <version>6.0.9</version>
     </dependency>
 
     <dependency>
-      <groupId>org.springframework</groupId>
       <artifactId>spring-core</artifactId>
-      <version>6.0.9</version>
-    </dependency>
-
-    <dependency>
       <groupId>org.springframework</groupId>
-      <artifactId>spring-webmvc</artifactId>
       <version>6.0.9</version>
     </dependency>
 
     <dependency>
-      <groupId>jakarta.servlet</groupId>
+      <artifactId>spring-webmvc</artifactId>
+      <groupId>org.springframework</groupId>
+      <version>6.0.9</version>
+    </dependency>
+
+    <dependency>
       <artifactId>jakarta.servlet-api</artifactId>
+      <groupId>jakarta.servlet</groupId>
       <version>6.0.0</version>
     </dependency>
 
     <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
+      <groupId>com.fasterxml.jackson.core</groupId>
       <version>2.9.2</version>
     </dependency>
   </dependencies>
-  <build>
-    <finalName>try_with_gpt</finalName>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.11.0</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-war-plugin</artifactId>
-        <version>3.3.2</version>
-      </plugin>
-    </plugins>
-  </build>
+  <groupId>org.example</groupId>
+  <modelVersion>4.0.0</modelVersion>
+  <name>try_with_gpt Maven Webapp</name>
+  <packaging>war</packaging>
+
+  <properties>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+  </properties>
+
+  <url>http://maven.apache.org</url>
+  <version>1.0-SNAPSHOT</version>
 </project>
