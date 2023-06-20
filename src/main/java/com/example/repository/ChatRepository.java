@@ -19,8 +19,8 @@ public class ChatRepository {
 
   public List<ChatMessage> getAll() {
     return namedParameterJdbcTemplate.query("""
-      SELECT * FROM test_table;
-      """, (rs, rowNum) -> new ChatMessage(rs.getString("username"), rs.getString("message_content"), null));
+      SELECT id, username, message_content FROM test_table;
+      """, (rs, rowNum) -> new ChatMessage(rs.getString("username"), rs.getString("message_content"), rs.getInt("id")));
   }
 
 

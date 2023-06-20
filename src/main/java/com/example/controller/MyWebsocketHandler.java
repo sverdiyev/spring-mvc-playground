@@ -3,7 +3,6 @@ package com.example.controller;
 import com.example.model.ChatMessage;
 import com.example.repository.ChatRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.sql.Timestamp;
 import java.util.List;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.TextMessage;
@@ -29,12 +28,6 @@ public class MyWebsocketHandler extends TextWebSocketHandler {
     ChatMessage receivedMessage = mapper.readValue(message.getPayload(), ChatMessage.class);
 
     chatRepository.addMessage("anon", receivedMessage.messageContent());
-
-    var resMessage = new ChatMessage("Sasha", "hello from sasha", new Timestamp(1000));
-
-    var mappedRes = mapper.writeValueAsString(resMessage);
-
-    session.sendMessage(new TextMessage(mappedRes));
 
     List<ChatMessage> messages = chatRepository.getAll();
 
