@@ -19,7 +19,7 @@ public class ChatRepository {
 
   public List<ChatMessage> getAll() {
     return namedParameterJdbcTemplate.query("""
-      SELECT id, username, message_content FROM test_table;
+      SELECT id, username, message_content FROM chat_messages;
       """, (rs, rowNum) -> new ChatMessage(rs.getString("username"), rs.getString("message_content"), rs.getInt("id")));
   }
 
@@ -30,7 +30,7 @@ public class ChatRepository {
       .addValue("messageContent", messageContent);
 
     namedParameterJdbcTemplate.update("""
-      INSERT INTO test_table (username, message_content) values (:userName, :messageContent);
+      INSERT INTO chat_messages (username, message_content) values (:userName, :messageContent);
       """, params);
   }
 }
