@@ -1,51 +1,5 @@
-instructions from gpt:
+open questions:
 
-To create a simple "Hello World" API using Spring MVC without Spring Boot, follow these steps:
-
-Set up your project structure:
-
-Create a new Java project in your preferred IDE.
-Add the required dependencies manually. You'll need the following dependencies:
-Spring Core
-Spring MVC
-Jackson (for JSON serialization/deserialization)
-Servlet API
-Create the necessary configuration files:
-
-Create a web.xml file in the WEB-INF folder. This file serves as the deployment descriptor for your web application.
-Configure the DispatcherServlet in the web.xml file by mapping it to the root URL ("/") or a specific URL pattern.
-Create the Spring configuration file:
-
-Create a Spring configuration XML file (e.g., spring-config.xml) in the WEB-INF folder.
-Configure the DispatcherServlet in the XML file using the <mvc:annotation-driven> element.
-Create the controller:
-
-Create a Java class and annotate it with @Controller.
-Define a method in the class and annotate it with @RequestMapping("/") to handle the root URL.
-In the method, create a HashMap or a POJO object with the "Hello World" message.
-Use the @ResponseBody annotation on the method to indicate that the returned value should be serialized to the response body as JSON.
-Here's an example of how the code would look:
-
-java
-Copy code
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-@Controller
-public class HelloWorldController {
-
-    @RequestMapping("/")
-    @ResponseBody
-    public HashMap<String, String> helloWorld() {
-        HashMap<String, String> response = new HashMap<>();
-        response.put("message", "Hello World");
-        return response;
-    }
-}
-
-
-Build and deploy your project:
-Build your project to generate the WAR file.
-Deploy the generated WAR file to a servlet container, such as Apache Tomcat or Jetty.
-Start the servlet container and access your "Hello World" API using the configured URL pattern.
+1. how to make liquibase.properties take db url from application.yml
+2. how to make configure profiles without string concatenation like application-${spring.profiles.active} ....
+3. remake handler into broker and make it into a controller
