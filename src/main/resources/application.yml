@@ -1,15 +1,2 @@
-datasource:
-  postgres:
-    url: "jdbc:postgresql://localhost:5432/testing_db"
----
-spring:
-  profiles: aws
-datasource:
-  postgres:
-    url: "jdbc:postgresql://aws-testing-db.c4ggxdbvbrr0.us-east-1.rds.amazonaws.com:5432"
----
-spring:
-  profiles: local
-datasource:
-  postgres:
-    url: "jdbc:postgresql://localhost:5432/testing_db"
+local-url: "jdbc:postgresql://localhost:5432/testing_db"
+aws-url: "jdbc:postgresql://aws-testing-db.c4ggxdbvbrr0.us-east-1.rds.amazonaws.com:5432/testing_db"

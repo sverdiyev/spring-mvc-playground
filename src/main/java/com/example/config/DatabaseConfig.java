@@ -12,25 +12,21 @@ public class DatabaseConfig {
 
   @Value("${spring.profiles.active}")
   private String activeProfile;
-  @Value("${datasource.postgres.url}")
-  private String dbConnectionUrl;
+  @Value("${local-url}")
+  private String localDbConnectionUrl;
+  @Value("${aws-url}")
+  private String awsDbConnectionUrl;
 
   @Bean
   public DataSource postgresDataSource() {
     DriverManagerDataSource dataSource = new DriverManagerDataSource();
     dataSource.setDriverClassName("org.postgresql.Driver");
-    dataSource.setUrl("jdbc:postgresql://localhost:5432/testing_db");
     dataSource.setUsername("postgres");
     dataSource.setPassword("postgres");
 
-    getProperties();
+    dataSource.setUrl(activeProfile.equalsIgnoreCase("aws") ? awsDbConnectionUrl : localDbConnectionUrl);
 
     return dataSource;
-  }
-
-  public void getProperties() {
-    System.out.println("Currently active profile - " + activeProfile);
-    System.out.println("db_connection_url - " + dbConnectionUrl);
   }
 
   @Bean
