@@ -44,6 +44,12 @@
   <dependencies>
 
     <dependency>
+      <artifactId>snakeyaml</artifactId>
+      <groupId>org.yaml</groupId>
+      <version>2.0</version>
+    </dependency>
+
+    <dependency>
       <artifactId>liquibase-maven-plugin</artifactId>
       <groupId>org.liquibase</groupId>
       <version>4.22.0</version>
